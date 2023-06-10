@@ -54,7 +54,7 @@ class Faculty(db.Model):
 class Department(db.Model):
     __tablename__ = 'department'
     faculty = db.Column(db.String(50))
-    name = db.Column(db.String(50), unique=True)
+    name = db.Column(db.String(50), primary_key = True)
 
     def __init__(self, faculty, name):
         self.faculty = faculty
@@ -63,3 +63,70 @@ class Department(db.Model):
     def __repr__(self):
         return '<Name %r>' % (self.name)    
 
+class Course(db.Model):
+    __tablename__ = 'courses'
+    courseCode = db.Column(db.String(8), primary_key = True)
+    courseName = db.Column(db.String(100))
+    creditHours = db.Column(db.Integer)
+    semestersOffered = db.Column(db.String(50))
+    prerequisites = db.Column(db.String(100))
+    
+    
+
+    def __init__(self, courseCode, courseName, creditHours, semestersOffered, prerequisites):
+        self.courseCode = courseCode
+        self.courseName = courseName
+        self.creditHours = creditHours
+        self.semestersOffered = semestersOffered
+        self.prerequisites = prerequisites
+
+    def __repr__(self):
+        return '<CourseCode %r>' % (self.courseCode)
+
+
+class CourseDescription(db.Model):
+    __tablename__ = 'description'
+    courseCode = db.Column(db.String(8), primary_key = True)
+    courseDescription =  db.Column(db.String(5000))       
+    prerequisites = db.Column(db.String(100))
+    corequisites = db.Column(db.String(100))
+    antirequisites = db.Column(db.String(100))
+
+    def __init__(self, courseCode, courseDescription, prerequisites, corequisites, antirequisites):
+        self.courseCode = courseCode
+        self.courseDescription = courseDescription     
+        self.prerequisites = prerequisites
+        self.corequisites = corequisites
+        self.antirequisites = antirequisites
+    
+    def __repr__(self):
+        return '<CourseCode %r>' % (self.courseCode)
+
+class DifficultyRating(db.Model):
+    __tablename__ = 'rating'
+    courseCode = db.Column(db.String(8), primary_key = True)
+    rating =  db.Column(db.Integer)
+
+    def __init__(self, courseCode, rating):
+        self.courseCode = courseCode
+        self.rating = rating
+
+    def __repr__(self):
+        return '<CourseCode %r>' % (self.courseCode)     
+    
+class DegreeOfferings(db.Model):
+    __tablename__ = 'degrees'
+    id = db.Column(db.Integer, primary_key=True)
+    faculty = db.Column(db.String(50))
+    degreeName = db.Column(db.String(100))
+    isOffered = db.Column(db.Boolean)
+    minNumOfCredits = db.Column(db.Integer)
+    
+    def __init__(self, faculty, degreeName, isOffered, minNumOfCredits):
+        self.faculty = faculty
+        self.degreeName = degreeName
+        self.isOffered = isOffered
+        self.minNumOfCredits = minNumOfCredits
+
+    def __repr__(self):
+        return '<Degree %r>' % (self.degreeName)
