@@ -65,68 +65,105 @@ class Department(db.Model):
 
 class Course(db.Model):
     __tablename__ = 'courses'
-    courseCode = db.Column(db.String(8), primary_key = True)
-    courseName = db.Column(db.String(100))
-    creditHours = db.Column(db.Integer)
-    semestersOffered = db.Column(db.String(50))
-    prerequisites = db.Column(db.String(100))
+    coursecode = db.Column(db.String(8), primary_key = True)
+    coursename = db.Column(db.String(100))
+    credithours = db.Column(db.Integer)
+    semestersoffered = db.Column(db.String(50))
+    prerequisites = db.Column(db.String(300))
     
     
 
-    def __init__(self, courseCode, courseName, creditHours, semestersOffered, prerequisites):
-        self.courseCode = courseCode
-        self.courseName = courseName
-        self.creditHours = creditHours
-        self.semestersOffered = semestersOffered
+    def __init__(self, coursecode, coursename, credithours, semestersoffered, prerequisites):
+        self.coursecode = coursecode
+        self.coursename = coursename
+        self.credithours = credithours
+        self.semestersoffered = semestersoffered
         self.prerequisites = prerequisites
 
     def __repr__(self):
-        return '<CourseCode %r>' % (self.courseCode)
+        return '<coursecode %r>' % (self.coursecode)
+    
+class ExclusiveCourse(db.Model):
+    __tablename__ = 'exclusivecourses'
+    coursecode = db.Column(db.String(8), primary_key = True)
+    coursename = db.Column(db.String(100))
+    credithours = db.Column(db.Integer)
+    semestersoffered = db.Column(db.String(50))
+    prerequisites = db.Column(db.String(300))
+    restriction = db.Column(db.String(200))
+    
+    
+
+    def __init__(self, coursecode, coursename, credithours, semestersoffered, prerequisites, restriction):
+        self.coursecode = coursecode
+        self.coursename = coursename
+        self.credithours = credithours
+        self.semestersoffered = semestersoffered
+        self.prerequisites = prerequisites
+        self.restriction = restriction
+
+    def __repr__(self):
+        return '<coursecode %r>' % (self.coursecode)    
 
 
 class CourseDescription(db.Model):
     __tablename__ = 'description'
-    courseCode = db.Column(db.String(8), primary_key = True)
-    courseDescription =  db.Column(db.String(5000))       
+    coursecode = db.Column(db.String(8), primary_key = True)
+    coursedescription =  db.Column(db.String(5000))       
     prerequisites = db.Column(db.String(100))
     corequisites = db.Column(db.String(100))
     antirequisites = db.Column(db.String(100))
 
-    def __init__(self, courseCode, courseDescription, prerequisites, corequisites, antirequisites):
-        self.courseCode = courseCode
-        self.courseDescription = courseDescription     
+    def __init__(self, coursecode, coursedescription, prerequisites, corequisites, antirequisites):
+        self.coursecode = coursecode
+        self.coursedescription = coursedescription     
         self.prerequisites = prerequisites
         self.corequisites = corequisites
         self.antirequisites = antirequisites
     
     def __repr__(self):
-        return '<CourseCode %r>' % (self.courseCode)
+        return '<Course Code %r>' % (self.coursecode)
 
 class DifficultyRating(db.Model):
     __tablename__ = 'rating'
-    courseCode = db.Column(db.String(8), primary_key = True)
+    coursecode = db.Column(db.String(8), primary_key = True)
     rating =  db.Column(db.Integer)
 
-    def __init__(self, courseCode, rating):
-        self.courseCode = courseCode
+    def __init__(self, coursecode, rating):
+        self.coursecode = coursecode
         self.rating = rating
 
     def __repr__(self):
-        return '<CourseCode %r>' % (self.courseCode)     
+        return '<Course Code %r>' % (self.coursecode)     
     
 class DegreeOfferings(db.Model):
     __tablename__ = 'degrees'
     id = db.Column(db.Integer, primary_key=True)
     faculty = db.Column(db.String(50))
-    degreeName = db.Column(db.String(100))
-    isOffered = db.Column(db.Boolean)
-    minNumOfCredits = db.Column(db.Integer)
+    degreename = db.Column(db.String(100))
+    isoffered = db.Column(db.Boolean)
+    yearoffered = db.Column(db.Integer)
+    minnumofcredits = db.Column(db.Integer)
     
-    def __init__(self, faculty, degreeName, isOffered, minNumOfCredits):
+    def __init__(self, faculty, degreename, isoffered, minnumofcredits):
         self.faculty = faculty
-        self.degreeName = degreeName
-        self.isOffered = isOffered
-        self.minNumOfCredits = minNumOfCredits
+        self.degreename = degreename
+        self.isoffered = isoffered
+        self.minnumofCredits = minnumofcredits
 
     def __repr__(self):
         return '<Degree %r>' % (self.degreeName)
+    
+class Qualifications(db.Model):
+    __tablename__ = 'qualifications'
+    id = db.Column(db.Integer, primary_key=True)
+    qtype =  db.Column(db.String(50))
+    subject = db.Column(db.String(50))
+
+    def __init__(self, qtype, subject):
+        self.qtype = qtype
+        self.subject = subject
+        
+
+    def __repr__(self):
+        return '<Type %r>' % (self.qtype)
