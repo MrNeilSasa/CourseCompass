@@ -1,7 +1,7 @@
 <template>
-      <footer class="mt-5">
-          <div class="container">
-              <p>Copyright &copy {{ year }} Flask Inc.</p>
+      <footer class="text-center">
+          <div class="">
+              <p>Copyright &copy {{ year }} Virtual Solutions.</p>
           </div>
       </footer>
 </template>

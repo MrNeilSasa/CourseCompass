@@ -11,7 +11,7 @@ import AppFooter from "@/components/AppFooter.vue";
     <RouterView />
   </main>
   
-  <AppFooter />
+ 
 </template>
 
 <style>
